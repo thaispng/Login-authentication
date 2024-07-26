@@ -4,11 +4,13 @@ import { useRouter } from 'next/navigation';
 import Input from "../_ui/Input"; 
 import Button from "../_ui/Button"; 
 import Image from "next/image";
+import Modal from "../_ui/Modal";
 
 export default function Login() {
-  const [email, setEmail] = useState("test@example.com");
-  const [password, setPassword] = useState("Test@1234");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
   const validate = () => {
@@ -53,13 +55,11 @@ export default function Login() {
   };
 
   return (
-    <div className="flex w-full h-[100vh]">
-      <div className="w-1/2">
-        <div className="flex flex-col justify-center items-center h-full p-10">
-          <form className="flex flex-col w-full p-10" onSubmit={handleSubmit}>
-            <h1 className="text-primary text-1xl font-semibold">
-              Entre na sua conta
-            </h1>
+    <div className="flex flex-col lg:flex-row w-full h-screen justify-center items-center">
+      <div className="flex flex-col justify-center items-center w-full h-[100vh] lg:w-1/2 p-10 lg:bg-white">
+        <div className="w-full max-w-md">
+            <Image src="/logo.svg" width={200} height={100} alt="Logo" className="mx-auto mb-6 lg:hidden" />
+        <form className="flex flex-col w-full" onSubmit={handleSubmit}>
             <Input
               label="Email*"
               type="text"
@@ -67,6 +67,7 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               error={errors.email}
+
             />
             <Input
               label="Senha*"
@@ -75,25 +76,23 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               error={errors.password}
+
             />
-            <div className="flex w-full">
+            <div className="flex w-full mb-4">
               <Button fullWidth={true} text="Entrar" type="submit" />
             </div>
-            <div>
-              <div className="py-2">
-                <a href="./Inicial" className="text-blue-400 text-sm">
-                  Esqueceu a senha?
-                </a>
-              </div>
+            <div className="flex text-center w-full justify-start">
+              <a href="#" className="text-blue-400 text-sm" onClick={() => setIsModalOpen(true)}>
+                Esqueceu a senha?
+              </a>
             </div>
           </form>
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center w-1/2 h-full p-10 bg-orange-50">
-        <div>
-          <Image src="./logo.svg" width={400} height={200} alt="Logo" />
-        </div>
+      <div className="hidden lg:flex flex-col justify-center items-center w-1/2 h-full p-10 bg-orange-50">
+        <Image src="./logo.svg" width={400} height={200} alt="Logo" />
       </div>
+      <Modal title="Recuperar Senha" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }
