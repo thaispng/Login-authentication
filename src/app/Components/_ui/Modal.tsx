@@ -29,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({ title, isOpen, onClose }) => {
   };
 
   const isEmailRegistered = async (email: string): Promise<boolean> => {
-    const registeredEmails = ['email1@gmail.com', 'email2@gmail.com'];
+    const registeredEmails = ['thais@gmail.com'];
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(registeredEmails.includes(email));
