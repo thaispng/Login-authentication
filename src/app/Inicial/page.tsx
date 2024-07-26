@@ -1,8 +1,13 @@
-
+import Header from "../Components/_ui/Header";
+import PasswordResetMessage from "../Components/_ui/PasswordResetModal";
 export default function Inicial() {
   return (
-    <main>
-               <div>Bem-vindo à página inicial!</div>;
+    <>
+    <Header />
+    
+    <main className="">
+              <PasswordResetMessage />
     </main>
+    </>
   );
 }
