@@ -21,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   fullWidth = false,
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center border font-medium rounded-md uppercase';
+  const baseClasses = 'inline-flex items-center justify-center border font-medium rounded-xl uppercase';
   const variantClasses = {
     primary: 'bg-[#E96535] text-white border-transparent hover:bg-[#CB491A]',
     secondary: 'bg-gray-500 text-white border-transparent hover:bg-gray-600 ',
