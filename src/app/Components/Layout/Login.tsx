@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from 'next/navigation'; 
+import { useValidation } from '../../../hooks/useValidation';
+import { useLogin } from '../../../hooks/useLogin';
 import Input from "../_ui/Input"; 
 import Button from "../_ui/Button"; 
 import Image from "next/image";
@@ -9,48 +10,15 @@ import Modal from "../_ui/Modal";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({ email: "", password: "" });
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const router = useRouter();
-
-  const validate = () => {
-    let emailError = "";
-    let passwordError = "";
-
-    if (!email) {
-      emailError = "O email é obrigatório.";
-    } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
-      emailError = "E-mail inválido. Insira um endereço de e-mail no formato correto.";
-    }
-
-    if (!password) {
-      passwordError = "A senha é obrigatória.";
-    } else if (
-      password.length < 8 ||
-      password.length > 32 ||
-      !/[A-Z]/.test(password) ||
-      !/[a-z]/.test(password) ||
-      !/[0-9]/.test(password) ||
-      !/[!@#$%^&*(),.?":{}|<>]/.test(password)
-    ) {
-      passwordError =
-        "Senha inválida. Verifique se a senha tem pelo menos 8 caracteres, com letras maiúsculas, minúsculas, números e caracteres especiais.";
-    }
-
-    if (emailError || passwordError) {
-      setErrors({ email: emailError, password: passwordError });
-      return false;
-    }
-
-    return true;
-  };
+  const { errors, validate } = useValidation();
+  const { message, login } = useLogin();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (validate()) {
-      console.log("Entrar com email:", email, "e senha:", password);
-      router.push('/Inicial'); 
+    if (validate(email, password)) {
+      login(email, password);
     }
   };
 
@@ -67,7 +35,6 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               error={errors.email}
-
             />
             <Input
               label="Senha*"
@@ -76,7 +43,6 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               error={errors.password}
-
             />
             <div className="flex w-full mb-4">
               <Button fullWidth={true} text="Entrar" type="submit" />
@@ -92,6 +58,7 @@ export default function Login() {
       <div className="hidden lg:flex flex-col justify-center items-center w-1/2 h-full p-10 bg-orange-50">
         <Image src="./logo.svg" width={400} height={200} alt="Logo" />
       </div>
+      {message && <p className="text-red-500">{message}</p>}
       <Modal title="Recuperar Senha" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
