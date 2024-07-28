@@ -1,12 +1,13 @@
 import Header from "../Components/_ui/Header";
-import PasswordResetMessage from "../Components/_ui/PasswordResetModal";
+import SideMenu from "../Components/_ui/SideMenu";
+
 export default function Inicial() {
   return (
     <>
     <Header />
-    
+    <SideMenu />
     <main className="">
-              <PasswordResetMessage />
+             
     </main>
     </>
   );
