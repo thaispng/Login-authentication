@@ -17,9 +17,8 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (validate(email, password)) {
       login(email, password);
-    }
+    
   };
 
   return (
