@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Moon, Sun } from 'lucide-react';
 import Image from 'next/image';
-
+import Input from './Input';
 export default function Header() {
   const [theme, setTheme] = useState('light');
 
@@ -20,13 +20,20 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full flex justify-between items-center px-6 container-bg bg-gray-50">
-      <div className="flex-1 flex justify-center">
-        <Image src="/logo.svg" width={150} height={200} alt="Logo" />
+    <header className="w-full flex justify-between items-center px-6 py-4 bg-blue bg-gray-50">
+      <div className="flex-1 flex justify-end gap-10">
+      <Input
+          label=""
+          type="text"
+          placeholder="Pesquise aqui..."
+          value=""
+          onChange={() => {}}
+        />
+        <h1 className='flex flex-row font-semibold text-lg justify-center items-center text-gray-50'>
+          Nome do usuário
+        </h1>
       </div>
-      <button className="text-neutral-500 hover:text-neutral-400" onClick={handle}>
-        {theme === 'light' ? <Moon size={24} /> : <Sun size={24} />}
-      </button>
+     
     </header>
   );
 }
