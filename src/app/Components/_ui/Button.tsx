@@ -9,6 +9,8 @@ interface ButtonProps {
   size?: 'small' | 'medium' | 'large';
   icon?: React.ReactNode;
   fullWidth?: boolean;
+  hideTextOnMobile?: boolean; // Add this prop to control text visibility on mobile
+  hideIconOnMobile?: boolean; // Add this prop to control icon visibility on mobile
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -20,12 +22,14 @@ const Button: React.FC<ButtonProps> = ({
   size = 'medium',
   icon,
   fullWidth = false,
+  hideTextOnMobile = false, 
+  hideIconOnMobile = false, 
 }) => {
   const baseClasses = 'inline-flex items-center justify-center border font-medium rounded-xl uppercase';
   const variantClasses = {
     primary: 'bg-[#E96535] text-white border-transparent hover:bg-[#CB491A]',
-    secondary: 'bg-gray-500 text-white border-transparent hover:bg-gray-600 ',
-    danger: 'bg-red-500 text-white border-transparent hover:bg-red-600 ',
+    secondary: 'bg-gray-500 text-white border-transparent hover:bg-gray-600',
+    danger: 'bg-red-500 text-white border-transparent hover:bg-red-600',
   };
   const sizeClasses = {
     small: 'px-2.5 py-1.5 text-xs',
@@ -41,8 +45,16 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${fullWidthClasses} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
     >
-      {icon && <span className={`${text ? 'mr-2' : ''}`}>{icon}</span>}
-      {text}
+      {icon && (
+        <span className={`${hideIconOnMobile ? 'hidden sm:flex' : ''} ${text ? 'mr-2' : ''}`}>
+          {icon}
+        </span>
+      )}
+      {text && (
+        <span className={`${hideTextOnMobile ? 'hidden sm:inline' : ''}`}>
+          {text}
+        </span>
+      )}
     </button>
   );
 };
