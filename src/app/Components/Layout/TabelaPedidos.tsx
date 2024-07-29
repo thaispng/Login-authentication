@@ -102,31 +102,31 @@ const TabelaPedidos: React.FC = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <div>
-          <Button icon={<Filter size={24} />} text="Filtrar" variant="primary" onClick={() => setFilterModalOpen(true)} />
+          <Button icon={<Filter size={24} />} text="Filtrar" variant="primary" onClick={() => setFilterModalOpen(true)} size="medium" hideTextOnMobile={true} />
         </div>
       </div>
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white">
+        <table className="min-w-full bg-white hidden sm:table">
           <thead className="bg-gray-100">
             <tr>
-              <th className="py-2 px-4 border-b text-center w-[150px]">Núm. Pedido</th>
-              <th className="py-2 px-4 border-b text-center w-[200px]">Valor</th>
-              <th className="py-2 px-4 border-b text-center w-[200px]">Data</th>
-              <th className="py-2 px-4 border-b text-center w-[200px]">Forma de pagamento</th>
-              <th className="py-2 px-4 border-b text-center w-[200px]">Status</th>
-              <th className="py-2 px-4 border-b w-[20%]">Ação</th>
+              <th className="py-2 px-4 border-b text-center">Núm. Pedido</th>
+              <th className="py-2 px-4 border-b text-center">Valor</th>
+              <th className="py-2 px-4 border-b text-center">Data</th>
+              <th className="py-2 px-4 border-b text-center">Forma de pagamento</th>
+              <th className="py-2 px-4 border-b text-center">Status</th>
+              <th className="py-2 px-4 border-b">Ação</th>
             </tr>
           </thead>
           <tbody>
             {filteredProdutos.map((produto) => (
               <tr key={produto.id}>
-                <td className="py-4 px-4 border-b text-blue-500 text-center w-[200px]">
+                <td className="py-4 px-4 border-b text-blue-500 text-center">
                   <a href="#">{produto.numeroDoProduto}</a>
                 </td>
-                <td className="py-2 px-4 border-b text-center w-[200px]">{`R$${produto.valorDoProduto.toFixed(2)}`}</td>
-                <td className="py-2 px-4 border-b text-center w-[200px]">{produto.dataCriacao}</td>
-                <td className="py-2 px-4 border-b text-center w-[200px]">{produto.formaDePagamento}</td>
-                <td className="py-2 px-4 border-b text-center w-[200px]">
+                <td className="py-2 px-4 border-b text-center">{`R$${produto.valorDoProduto.toFixed(2)}`}</td>
+                <td className="py-2 px-4 border-b text-center">{produto.dataCriacao}</td>
+                <td className="py-2 px-4 border-b text-center">{produto.formaDePagamento}</td>
+                <td className="py-2 px-4 border-b text-center">
                   <span className={`py-2 px-3 rounded-lg text-base font-semibold ${getStatusColor(produto.status)}`}>
                     {produto.status}
                   </span>
@@ -140,6 +140,33 @@ const TabelaPedidos: React.FC = () => {
             ))}
           </tbody>
         </table>
+        <div className="sm:hidden">
+          {filteredProdutos.map((produto) => (
+            <div key={produto.id} className="bg-white shadow-md rounded-lg mb-4 p-4 text-sm">
+              <div className="flex justify-between mb-2">
+                <div className="flex flex-col">
+                  <div className="text-gray-700 font-semibold">Núm. Pedido</div>
+                  <div className="text-blue-500">
+                    <a href="#">{produto.numeroDoProduto}</a>
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <div className="text-gray-700 font-semibold">Valor</div>
+                  <div className="text-gray-700">{`R$${produto.valorDoProduto.toFixed(2)}`}</div>
+                </div>
+                <div className="flex flex-col">
+                  <div className="text-gray-700 font-semibold">Data</div>
+                  <div className="text-gray-700">{produto.dataCriacao}</div>
+                </div>
+              </div>
+              <div className="flex justify-center items-center w-full">
+                <span className={`py-2 px-3 w-full text-center rounded-lg text-base font-semibold ${getStatusColor(produto.status)}`}>
+                  {produto.status}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <FilterModal isOpen={isFilterModalOpen} onClose={() => setFilterModalOpen(false)} onApplyFilters={setFilters} />
