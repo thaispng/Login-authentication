@@ -9,7 +9,7 @@ const useDeleteProduto = () => {
     setLoading(true);
     setError(null);
     try {
-      await axios.delete(`${process.env.HOST_API}/api/produtos/${id}`);
+      await axios.delete(`https://deploy-erckf9egd4d5hub6.eastus-01.azurewebsites.net/api/produtos/${id}`);
       setLoading(false);
       return true;
     } catch (error) {

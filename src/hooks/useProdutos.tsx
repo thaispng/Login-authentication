@@ -29,7 +29,7 @@ const useProdutos = () => {
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
-        const response = await fetch(`${process.env.HOST_API}/api/produtos`);
+        const response = await fetch(`https://deploy-erckf9egd4d5hub6.eastus-01.azurewebsites.net/api/produtos`);
         if (!response.ok) {
           throw new Error('Erro na requisição');
         }
