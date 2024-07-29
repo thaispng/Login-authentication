@@ -37,7 +37,7 @@ const Input: React.FC<InputProps> = ({ label, type, placeholder, value, onChange
           </div>
         )}
       </div>
-      {error && <p className="text-red-500 text-xs pt-2">{error}</p>}
+      {error && <p className="text-red-500 text-base pt-2">{error}</p>}
     </div>
   );
 };
