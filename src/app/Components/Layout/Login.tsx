@@ -47,12 +47,8 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const isEmailValid = validateEmail(email);
-    const isPasswordValid = validatePassword(password);
 
-    if (isEmailValid && isPasswordValid) {
       login(email, password);
-    }
   };
 
   return (
