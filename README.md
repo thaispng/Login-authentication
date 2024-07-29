@@ -1,1 +1,2 @@
-entre com email thais@gmail.com senha Th@!123456
+entre com email novo@dominio.com senha nova_senha_secretA12
+
