@@ -2,15 +2,21 @@
 
 import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { House, Box, Boxes, FileBox, Users, GraduationCap, ArrowLeft, LogOut } from 'lucide-react';
 import clsx from 'clsx';
 
 const SideMenu = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const router = useRouter();
 
   const toggleMenu = () => {
     setIsOpen(prev => !prev);
   };
+
+  const handleLogout = () => {
+    router.push('/');
+  }
 
   const menuItems = useMemo(() => [
     { href: '#', icon: House, label: 'Home' },
@@ -19,7 +25,7 @@ const SideMenu = () => {
     { href: '#', icon: GraduationCap, label: 'Escolas' },
     { href: '#', icon: FileBox, label: 'Gestão de pedidos' },
     { href: '#', icon: Users, label: 'Usuários' },
-    { href: '#', icon: LogOut, label: 'Sair' },
+    { onClick: handleLogout, icon: LogOut, label: 'Sair' },
   ], []);
 
   return (
@@ -28,8 +34,13 @@ const SideMenu = () => {
         <Image src="/Logotrajetonb 2.svg" width={50} height={50} alt="Logo" />
       </div>
       <nav className="flex flex-col gap-5 mt-4 p-2">
-        {menuItems.map(({ href, icon: Icon, label }) => (
-          <a key={label} href={href} className="flex items-center px-3 py-2 text-base text-gray-600 font-medium hover:bg-gray-100 rounded-md focus:text-orange-600 focus:bg-gray-100">
+        {menuItems.map(({ href, onClick, icon: Icon, label }) => (
+          <a 
+            key={label} 
+            href={href} 
+            onClick={onClick} 
+            className="flex items-center px-3 py-2 text-base text-gray-600 font-medium hover:bg-gray-100 rounded-md focus:text-orange-600 focus:bg-gray-100 cursor-pointer"
+          >
             <Icon className="mr-2 text-base transition-all flex-none" />
             <span className={clsx('transition-all', isOpen ? 'opacity-100': 'opacity-0')}>{label}</span>
           </a>
